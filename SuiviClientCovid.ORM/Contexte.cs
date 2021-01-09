@@ -9,6 +9,8 @@ namespace SuiviClientCovid.ORM
     {
         public DbSet<Personne> Personnes { get; set; }
         public DbSet<Injection> Injections { get; set; }
+        public DbSet<TypesVaccin> TypesVaccins { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             options.UseSqlite("Data Source=vaccinator.db");
