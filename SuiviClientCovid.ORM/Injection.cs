@@ -20,7 +20,9 @@ namespace SuiviClientCovid.ORM
 
         public DateTime DateRappel { get; set; }
 
-        public List<TypesVaccin> TypesVaccins { get; } = new List<TypesVaccin>();
+        public int TypesVaccinId { get; set; }
+
+        public TypesVaccin TypesVaccins { get; set; }
 
         public int PersonneId { get; set; }
 

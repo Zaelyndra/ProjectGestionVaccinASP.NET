@@ -18,8 +18,7 @@ namespace SuiviClientCovid.ORM
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        public int InjectionId { get; set; }
+        public List<Injection> Injections { get; } = new List<Injection>();
 
-        public Injection Injection { get; set; }
     }
 }
