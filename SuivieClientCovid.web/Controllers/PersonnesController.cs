@@ -13,7 +13,7 @@ namespace SuivieClientCovid.web.Controllers
     {
         private readonly Contexte _context = new Contexte();
 
-        /*public PersonnesController(Contexte context)
+       /* public PersonnesController(Contexte context)
         {
             _context = context;
         } */
@@ -47,7 +47,7 @@ namespace SuivieClientCovid.web.Controllers
         // GET: Personnes/Create
         public IActionResult Create()
         {
-            ViewData["SexeId"] = new SelectList(_context.Set<Sexe>(), "Id", "name");
+            ViewData["SexeId"] = new SelectList(_context.Sexes, "Id", "name");
             return View();
         }
 
@@ -56,7 +56,7 @@ namespace SuivieClientCovid.web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nom,Prenom,Sexe,DateDeNaissance,Résident_Ou_Personnel,SexeId")] Personne personne)
+        public async Task<IActionResult> Create([Bind("Id,Nom,Prenom,DateDeNaissance,Résident_Ou_Personnel,SexeId")] Personne personne)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace SuivieClientCovid.web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SexeId"] = new SelectList(_context.Set<Sexe>(), "Id", "name", personne.SexeId);
+            ViewData["SexeId"] = new SelectList(_context.Sexes, "Id", "name", personne.SexeId);
             return View(personne);
         }
 
@@ -81,7 +81,7 @@ namespace SuivieClientCovid.web.Controllers
             {
                 return NotFound();
             }
-            ViewData["SexeId"] = new SelectList(_context.Set<Sexe>(), "Id", "name", personne.SexeId);
+            ViewData["SexeId"] = new SelectList(_context.Sexes, "Id", "name", personne.SexeId);
             return View(personne);
         }
 
@@ -90,7 +90,7 @@ namespace SuivieClientCovid.web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Prenom,Sexe,DateDeNaissance,Résident_Ou_Personnel,SexeId")] Personne personne)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Prenom,DateDeNaissance,Résident_Ou_Personnel,SexeId")] Personne personne)
         {
             if (id != personne.Id)
             {
@@ -117,7 +117,7 @@ namespace SuivieClientCovid.web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SexeId"] = new SelectList(_context.Set<Sexe>(), "Id", "name", personne.SexeId);
+            ViewData["SexeId"] = new SelectList(_context.Sexes, "Id", "name", personne.SexeId);
             return View(personne);
         }
 
