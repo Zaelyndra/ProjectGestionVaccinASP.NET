@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SuiviClientCovid.ORM;
 
 namespace SuiviClientCovid.ORM.Migrations
 {
     [DbContext(typeof(Contexte))]
-    partial class ContexteModelSnapshot : ModelSnapshot
+    [Migration("20210110101119_Update_BDD_Personne")]
+    partial class Update_BDD_Personne
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

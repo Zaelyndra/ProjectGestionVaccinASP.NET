@@ -17,8 +17,6 @@ namespace SuiviClientCovid.ORM
         [MaxLength(50)]
         public string Prenom { get; set; }
 
-        public bool? Sexe { get; set; }
-
         public DateTime DateDeNaissance { get; set; }
 
         public bool Résident_Ou_Personnel { get; set; }
