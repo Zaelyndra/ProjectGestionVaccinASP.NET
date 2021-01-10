@@ -24,6 +24,10 @@ namespace SuiviClientCovid.ORM
 
         public TypesVaccin TypesVaccins { get; set; }
 
+        public int PersonneId { get; set; }
+
+        public Personne personne { get; set; }
+
 
     }
 }
