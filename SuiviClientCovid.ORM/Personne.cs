@@ -23,6 +23,10 @@ namespace SuiviClientCovid.ORM
 
         public bool Résident_Ou_Personnel { get; set; }
 
+        public int SexeId { get; set; }
+
+        public Sexe sexe { get; set; }
+
         public List<Injection> Injections { get; } = new List<Injection>();
 
     }
