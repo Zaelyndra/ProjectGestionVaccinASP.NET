@@ -13,7 +13,7 @@ namespace SuivieClientCovid.web.Controllers
     {
         private readonly Contexte _context = new Contexte();
 
-       /* public PersonnesController(Contexte context)
+        /*public PersonnesController(Contexte context)
         {
             _context = context;
         } */
@@ -21,7 +21,8 @@ namespace SuivieClientCovid.web.Controllers
         // GET: Personnes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Personnes.ToListAsync());
+            var contexte = _context.Personnes.Include(p => p.sexe);
+            return View(await contexte.ToListAsync());
         }
 
         // GET: Personnes/Details/5
@@ -33,6 +34,7 @@ namespace SuivieClientCovid.web.Controllers
             }
 
             var personne = await _context.Personnes
+                .Include(p => p.sexe)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (personne == null)
             {
@@ -45,6 +47,7 @@ namespace SuivieClientCovid.web.Controllers
         // GET: Personnes/Create
         public IActionResult Create()
         {
+            ViewData["SexeId"] = new SelectList(_context.Set<Sexe>(), "Id", "name");
             return View();
         }
 
@@ -53,7 +56,7 @@ namespace SuivieClientCovid.web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nom,Prenom,Sexe,DateDeNaissance,Résident_Ou_Personnel")] Personne personne)
+        public async Task<IActionResult> Create([Bind("Id,Nom,Prenom,Sexe,DateDeNaissance,Résident_Ou_Personnel,SexeId")] Personne personne)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +64,7 @@ namespace SuivieClientCovid.web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["SexeId"] = new SelectList(_context.Set<Sexe>(), "Id", "name", personne.SexeId);
             return View(personne);
         }
 
@@ -77,6 +81,7 @@ namespace SuivieClientCovid.web.Controllers
             {
                 return NotFound();
             }
+            ViewData["SexeId"] = new SelectList(_context.Set<Sexe>(), "Id", "name", personne.SexeId);
             return View(personne);
         }
 
@@ -85,7 +90,7 @@ namespace SuivieClientCovid.web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Prenom,Sexe,DateDeNaissance,Résident_Ou_Personnel")] Personne personne)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Prenom,Sexe,DateDeNaissance,Résident_Ou_Personnel,SexeId")] Personne personne)
         {
             if (id != personne.Id)
             {
@@ -112,6 +117,7 @@ namespace SuivieClientCovid.web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["SexeId"] = new SelectList(_context.Set<Sexe>(), "Id", "name", personne.SexeId);
             return View(personne);
         }
 
@@ -124,6 +130,7 @@ namespace SuivieClientCovid.web.Controllers
             }
 
             var personne = await _context.Personnes
+                .Include(p => p.sexe)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (personne == null)
             {

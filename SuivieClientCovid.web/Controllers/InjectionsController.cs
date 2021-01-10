@@ -21,7 +21,7 @@ namespace SuivieClientCovid.web.Controllers
         // GET: Injections
         public async Task<IActionResult> Index()
         {
-            var contexte = _context.Injections.Include(i => i.TypesVaccins);
+            var contexte = _context.Injections.Include(i => i.TypesVaccins).Include(i => i.personne);
             return View(await contexte.ToListAsync());
         }
 
@@ -35,6 +35,7 @@ namespace SuivieClientCovid.web.Controllers
 
             var injection = await _context.Injections
                 .Include(i => i.TypesVaccins)
+                .Include(i => i.personne)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (injection == null)
             {
@@ -48,6 +49,7 @@ namespace SuivieClientCovid.web.Controllers
         public IActionResult Create()
         {
             ViewData["TypesVaccinId"] = new SelectList(_context.TypesVaccins, "Id", "Id");
+            ViewData["PersonneId"] = new SelectList(_context.Personnes, "Id", "Id");
             return View();
         }
 
@@ -56,7 +58,7 @@ namespace SuivieClientCovid.web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Marque,NuméroDuLot,Date,DateRappel,TypesVaccinId")] Injection injection)
+        public async Task<IActionResult> Create([Bind("Id,Marque,NuméroDuLot,Date,DateRappel,TypesVaccinId,PersonneId")] Injection injection)
         {
             if (ModelState.IsValid)
             {
@@ -65,6 +67,7 @@ namespace SuivieClientCovid.web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["TypesVaccinId"] = new SelectList(_context.TypesVaccins, "Id", "Id", injection.TypesVaccinId);
+            ViewData["PersonneId"] = new SelectList(_context.Personnes, "Id", "Id", injection.PersonneId);
             return View(injection);
         }
 
@@ -82,6 +85,7 @@ namespace SuivieClientCovid.web.Controllers
                 return NotFound();
             }
             ViewData["TypesVaccinId"] = new SelectList(_context.TypesVaccins, "Id", "Id", injection.TypesVaccinId);
+            ViewData["PersonneId"] = new SelectList(_context.Personnes, "Id", "Id", injection.PersonneId);
             return View(injection);
         }
 
@@ -90,7 +94,7 @@ namespace SuivieClientCovid.web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Marque,NuméroDuLot,Date,DateRappel,TypesVaccinId")] Injection injection)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Marque,NuméroDuLot,Date,DateRappel,TypesVaccinId,PersonneId")] Injection injection)
         {
             if (id != injection.Id)
             {
@@ -118,6 +122,7 @@ namespace SuivieClientCovid.web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["TypesVaccinId"] = new SelectList(_context.TypesVaccins, "Id", "Id", injection.TypesVaccinId);
+            ViewData["PersonneId"] = new SelectList(_context.Personnes, "Id", "Id", injection.PersonneId);
             return View(injection);
         }
 
@@ -131,6 +136,7 @@ namespace SuivieClientCovid.web.Controllers
 
             var injection = await _context.Injections
                 .Include(i => i.TypesVaccins)
+                .Include(i => i.personne)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (injection == null)
             {
