@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ListePersonnesNonGrippeAnneEnCoursViewModel>
+
+@{
+
+    ViewData["Title"] = "ListePersonneNonPasGrippeAnneeEnCours";
+}
+
+<h1>Liste des personnes qui n'ont pas la grippe pendant l'annee en cours</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.prenom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.injection.Date)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.typesVaccin.Nom)
+            </th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.prenom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.injection.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.typesVaccin.Nom)
+                </td>
+            </tr>
+        }
+
+
+    <tbody>
+</table>

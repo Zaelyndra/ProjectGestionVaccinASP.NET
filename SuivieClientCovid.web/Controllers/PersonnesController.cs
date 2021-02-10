@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -48,6 +49,45 @@ namespace SuivieClientCovid.web.Controllers
             var contexte = _context.Personnes.Include(p => p.sexe);
             return View(await contexte.ToListAsync());
         }
+
+
+      
+
+
+        public IActionResult ListePersonneNonPasGrippeAnneeEnCours()
+        {
+            var listTypeVaccins = new List<TypesVaccin>();
+
+            foreach (TypesVaccin typesVaccin in _context.TypesVaccins)
+            {
+                listTypeVaccins.Add(typesVaccin);
+            }
+
+            int currentYear = DateTime.Now.Year; 
+
+
+            var context = from personne in _context.Personnes
+                          from injection in _context.Injections 
+                                .Where(i => personne.Id == i.PersonneId)
+                                .DefaultIfEmpty()
+                          from typeVaccin in _context.TypesVaccins
+                                .Where( jeVousEmmerdeProfonde => injection.TypesVaccinId == jeVousEmmerdeProfonde.Id  )
+                                .DefaultIfEmpty()
+                          where typeVaccin.Nom != "Grippe" && injection.Date.Year == currentYear || typeVaccin.Nom == null
+                          select new ListePersonnesNonGrippeAnneEnCoursViewModel
+                           (
+                               personne.Nom,
+                               personne.Prenom,
+                               injection,
+                               typeVaccin
+                           );
+         
+
+            return View(context.ToList());
+        }
+
+
+       
 
         // GET: Personnes/Details/5
         public async Task<IActionResult> Details(int? id)
