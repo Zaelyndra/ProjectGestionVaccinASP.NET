@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ListePersonnesNonCovidViewModel>
+
+@{
+    ViewData["Title"] = "ListePersonneNonVaccineCovid";
+}
+
+<h1>Liste des Personnes non vacciné contre le Covid</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.prenom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.injection)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.typesVaccin)
+            </th>
+        </tr>
+    </thead>
+    @{string duplicateName = ""; }
+
+    @foreach (var item in Model)
+    {
+        string nameItem = item.nom;
+
+        @if (nameItem != duplicateName)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.prenom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.injection.Marque)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.typesVaccin.Nom)
+                </td>
+            </tr>
+
+            duplicateName = nameItem;
+        }
+    }
+
+
+    <tbody>
+</table>
