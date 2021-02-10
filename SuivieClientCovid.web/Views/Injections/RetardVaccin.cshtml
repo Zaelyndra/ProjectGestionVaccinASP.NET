@@ -1,0 +1,67 @@
+﻿@model IEnumerable<SuiviClientCovid.ORM.Injection>
+
+@{
+    ViewData["Title"] = "RetardVaccin";
+}
+
+<h1>Retard Vaccin</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.personne.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.personne.Prenom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateRappel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypesVaccins)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marque)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NuméroDuLot)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @if (item.DateRappel < item.Date)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.personne.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.personne.Prenom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateRappel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypesVaccins.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marque)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NuméroDuLot)
+            </td>
+        </tr>
+            }
+         }
+    </tbody>
+</table>

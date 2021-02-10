@@ -25,6 +25,13 @@ namespace SuivieClientCovid.web.Controllers
             return View(await contexte.ToListAsync());
         }
 
+        // GET: Retard Vaccins
+        public async Task<IActionResult> RetardVaccin()
+        {
+            var contexte = _context.Injections.Include(i => i.TypesVaccins).Include(i => i.personne);
+            return View(await contexte.ToListAsync());
+        }
+
         // GET: Injections/Details/5
         public async Task<IActionResult> Details(int? id)
         {
