@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SuiviClientCovid.ORM;
+using SuivieClientCovid.web.Models;
 
 namespace SuivieClientCovid.web.Controllers
 {
@@ -13,10 +14,33 @@ namespace SuivieClientCovid.web.Controllers
     {
         private readonly Contexte _context = new Contexte();
 
-       /* public PersonnesController(Contexte context)
+        /* public PersonnesController(Contexte context)
+         {
+             _context = context;
+         } */
+
+        // GET: Personnes Non vacciné contre le Covid
+        public IActionResult ListePersonneNonVaccineCovid()
         {
-            _context = context;
-        } */
+            var context = from personne in _context.Personnes
+                          from injection in _context.Injections
+                          .Where(i => personne.Id == i.PersonneId)
+                          .DefaultIfEmpty()
+                          from typeVaccin in _context.TypesVaccins
+                          .Where(t => injection.TypesVaccinId == t.Id)
+                          .DefaultIfEmpty()
+                          where typeVaccin.Nom != "Covid"
+
+            select new ListePersonnesNonCovidViewModel
+                          (
+                              personne.Nom,
+                              personne.Prenom,
+                              injection,
+                              typeVaccin
+                          );
+
+            return View(context.ToList());
+        }
 
         // GET: Personnes
         public async Task<IActionResult> Index()
