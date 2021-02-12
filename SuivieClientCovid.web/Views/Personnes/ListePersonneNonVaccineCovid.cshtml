@@ -11,16 +11,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.nom)
+                Nom@*@Html.DisplayNameFor(model => model.nom)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.prenom)
+                Prénom@*@Html.DisplayNameFor(model => model.prenom)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.injection)
+                Date De Naissance@*@Html.DisplayNameFor(model => model.injection)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.typesVaccin)
+                Sexe@*@Html.DisplayNameFor(model => model.typesVaccin)*@
             </th>
         </tr>
     </thead>
@@ -32,20 +32,26 @@
 
         @if (nameItem != duplicateName)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nom)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.prenom)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.injection.Marque)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.typesVaccin.Nom)
-                </td>
-            </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.nom)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.prenom)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.datedenaissance)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.sexe.name)
+    </td>
+    @* <td>
+            @Html.DisplayFor(modelItem => item.injection.Marque)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.typesVaccin.Nom)
+        </td>*@
+</tr>
 
             duplicateName = nameItem;
         }
