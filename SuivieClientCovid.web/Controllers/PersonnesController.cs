@@ -24,6 +24,9 @@ namespace SuivieClientCovid.web.Controllers
         public IActionResult ListePersonneNonVaccineCovid()
         {
             var context = from personne in _context.Personnes
+                          from sexe in _context.Sexes
+                                .Where(i => personne.SexeId == i.Id)
+                                .DefaultIfEmpty()
                           from injection in _context.Injections
                           .Where(i => personne.Id == i.PersonneId)
                           .DefaultIfEmpty()
@@ -36,6 +39,8 @@ namespace SuivieClientCovid.web.Controllers
                           (
                               personne.Nom,
                               personne.Prenom,
+                              personne.DateDeNaissance,
+                              sexe,
                               injection,
                               typeVaccin
                           );

@@ -14,12 +14,18 @@ namespace SuivieClientCovid.web.Models
 
         public Injection injection { get; set; }
 
+        public DateTime datedenaissance { get; set; }
+
+        public Sexe sexe { get; set; }
+
         public TypesVaccin typesVaccin { get; set; }
 
-        public ListePersonnesNonCovidViewModel(string nom, string prenom, Injection injection, TypesVaccin typesVaccin)
+        public ListePersonnesNonCovidViewModel(string nom, string prenom, DateTime datedenaissance, Sexe sexe, Injection injection, TypesVaccin typesVaccin)
         {
             this.nom = nom;
             this.prenom = prenom;
+            this.datedenaissance = datedenaissance;
+            this.sexe = sexe;
             this.injection = injection;
             this.typesVaccin = typesVaccin;
         }
