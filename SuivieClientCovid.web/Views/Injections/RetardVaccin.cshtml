@@ -36,7 +36,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            @if (item.DateRappel < item.Date)
+            @if (item.DateRappel < DateTime.Now)
             {
         <tr>
             <td>
